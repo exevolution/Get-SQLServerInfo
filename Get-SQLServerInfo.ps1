@@ -16,7 +16,7 @@ $ProductArray = @(Import-Csv -LiteralPath "$ScriptRoot\defProducts.csv")
 $SuccessTable = New-Object -TypeName System.Data.DataTable "SQL Server Info"
 $FailTable = New-Object -TypeName System.Data.DataTable "Failed Servers"
 
-# Define Columns
+# Define Static Columns
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn Server,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn OperatingSystemSKU,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn ServicePack,([string])))
@@ -27,25 +27,6 @@ $SuccessTable.Columns.Add((New-Object System.Data.DataColumn SQLInstallPath,([st
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn RAM,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn CPU,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn AllDrives,([string])))
-<#$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD1,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD2,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD3,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD4,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD5,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD6,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD7,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD8,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD9,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD10,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD11,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD12,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD13,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD14,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD15,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD16,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD17,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD18,([string])))#>
-
 
 $FailTable.Columns.Add((New-Object System.Data.DataColumn Server,([string])))
 $FailTable.Columns.Add((New-Object System.Data.DataColumn ThrownException,([string])))
@@ -202,6 +183,7 @@ ForEach ($Server in $Servers)
         $CurrentDrive = "HDD" + $i
         If (!$SuccessTable.Columns.Contains($CurrentDrive))
         {
+            # Create dynamic table columns
             $SuccessTable.Columns.Add((New-Object System.Data.DataColumn $CurrentDrive,([string])))
         }
 
