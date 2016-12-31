@@ -1,4 +1,4 @@
-﻿Clear-Host
+Clear-Host
 # Remove previous run
 If ($FailTable) {Remove-Variable FailTable -Force | Out-Null}
 If ($SuccessTable) {Remove-Variable SuccessTable -Force | Out-Null}
@@ -27,7 +27,7 @@ $SuccessTable.Columns.Add((New-Object System.Data.DataColumn SQLInstallPath,([st
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn RAM,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn CPU,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn AllDrives,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD1,([string])))
+<#$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD1,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD2,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD3,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD4,([string])))
@@ -44,7 +44,7 @@ $SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD14,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD15,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD16,([string])))
 $SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD17,([string])))
-$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD18,([string])))
+$SuccessTable.Columns.Add((New-Object System.Data.DataColumn HDD18,([string])))#>
 
 
 $FailTable.Columns.Add((New-Object System.Data.DataColumn Server,([string])))
@@ -80,7 +80,7 @@ ForEach ($Server in $Servers)
     }
     Catch [System.Management.Automation.ActionPreferenceStopException]
     {
-        Write-Error "$($Server.HostName) encountered an error"
+        Write-Warning "$($Server.HostName) encountered an error"
         $FailRow = $FailTable.NewRow()
         $FailRow.Server = $Server.HostName
         $FailRow.ThrownException = "[$($Error[0].Exception.GetType().FullName)] $($Error[0].Exception.Message)"
@@ -89,7 +89,7 @@ ForEach ($Server in $Servers)
     }
     Catch [System.Runtime.InteropServices.COMException]
     {
-        Write-Error "$($Server.HostName): $($Error[0].Exception.Message)"
+        Write-Warning "$($Server.HostName): $($Error[0].Exception.Message)"
         $FailRow = $FailTable.NewRow()
         $FailRow.Server = $Server.HostName
         $FailRow.ThrownException = "[$($Error[0].Exception.GetType().FullName)] $($Error[0].Exception.Message)"
@@ -193,12 +193,18 @@ ForEach ($Server in $Servers)
     $SuccessRow.RAM = "$([Convert]::ToString($RAM))"
     $SuccessRow.CPU = ($CPU | Measure-Object -Property NumberOfLogicalProcessors -Sum).Sum
     $i = 0
+    $MaxDrives = 0
     $AllDrives = @()
     ForEach ($Drive in $HDD)
     {
         $i++
         $DriveOutput = "{0} {1}GB" -F $Drive.DeviceID,[Math]::Round($Drive.Size/1GB, 0)
         $CurrentDrive = "HDD" + $i
+        If (!$SuccessTable.Columns.Contains($CurrentDrive))
+        {
+            $SuccessTable.Columns.Add((New-Object System.Data.DataColumn $CurrentDrive,([string])))
+        }
+
         $SuccessRow.$CurrentDrive = $DriveOutput
         $AllDrives += $DriveOutput
     }
