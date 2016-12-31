@@ -1,6 +1,6 @@
 SKU NAME,VALUE,DESCRIPTION
 PRODUCT_UNDEFINED,0,Undefined
-PRODUCT_ULTIMATE,1,"Ultimate Edition, e.g. Windows Vista Ultimate."
+PRODUCT_ULTIMATE,1,"Ultimate Edition, e.g. WindowsÂ Vista Ultimate."
 PRODUCT_HOME_BASIC,2,Home Basic Edition
 PRODUCT_HOME_PREMIUM,3,Home Premium Edition
 PRODUCT_ENTERPRISE,4,Enterprise Edition
@@ -38,7 +38,7 @@ PRODUCT_STORAGE_ENTERPRISE_SERVER_CORE,46,Storage Server Enterprise Edition (Ser
 PRODUCT_SB_SOLUTION_SERVER,50,Windows Server Essentials (Desktop Experience installation)
 PRODUCT_SMALLBUSINESS_SERVER_PREMIUM_CORE,63,Small Business Server Premium (Server Core installation)
 PRODUCT_CLUSTER_SERVER_V,64,Windows Compute Cluster Server without Hyper-V
-PRODUCT_CORE_ARM,97,Windows RT
+PRODUCT_CORE_ARM,97,WindowsÂ RT
 PRODUCT_CORE,101,Windows Home
 PRODUCT_PROFESSIONAL_WMC,103,Windows Professional with Media Center
 PRODUCT_MOBILE_CORE,104,Windows Mobile
@@ -47,3 +47,4 @@ PRODUCT_DATACENTER_NANO_SERVER,143,Windows Server Datacenter Edition (Nano Serve
 PRODUCT_STANDARD_NANO_SERVER,144,Windows Server Standard Edition (Nano Server installation)
 PRODUCT_DATACENTER_WS_SERVER_CORE,147,Windows Server Datacenter Edition (Server Core installation)
 PRODUCT_STANDARD_WS_SERVER_CORE,148,Windows Server Standard Edition (Server Core installation)
+ 
